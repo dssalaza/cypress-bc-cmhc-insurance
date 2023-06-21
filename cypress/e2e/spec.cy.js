@@ -30,7 +30,6 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getMortageByCol(1).should("have.text", "$417,555");
     calculatorPage.getMortageByCol(2).should("have.text", "$393,210");
     calculatorPage.getMortageByCol(3).should("have.text", "$360,000");
-
   });
 
   it("Test scenario 2 - CMHC insurance with down payment less than 20% should be calculated. Insurance with DP over 20% is not calculated", () => {
