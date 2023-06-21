@@ -8,7 +8,7 @@ describe("BC CMHC Insurance test suite", () => {
     cy.visit("/");
   });
 
-  it.only("Test scenario 1 - Mortage calculation with a fixed asking amount", () => {
+  it("Test scenario 1 - Mortage calculation with a fixed asking amount", () => {
     calculatorPage.fillAskingPrice(450000);
 
     calculatorPage.getDownPaymentPercentByIndex(0).should("have.value", "5.0%");
@@ -42,7 +42,7 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
   });
 
-  it("Test scenario 3 - CMHC insurance is not available for homes purchased for more than $1 million", () => {
+  it("Test scenario 3 - CMHC insurance is not available for homes purchased for more than $1 million and minimun DP percentage starts at 20%", () => {
     const askingPrice = faker.number.int({ min: 1000000, max: 10000000 }); // 57;
 
     calculatorPage.fillAskingPrice(askingPrice);
@@ -58,7 +58,7 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
   });
 
-  it("Test scenario 4 - The new minimum down payment is 5% of the first $500,000", () => {
+  it("Test scenario 4 - The minimum down payment is 5% of the first $500,000", () => {
     const askingPrice = faker.number.int({ min: 100000, max: 500000 });
 
     calculatorPage.fillAskingPrice(askingPrice);
@@ -66,7 +66,7 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getDownPaymentPercentByIndex(0).should("have.value", "5.0%");
   });
 
-  it("Test scenario 5 - Homes sold over $500,000 can no longer be purchased with a 5% down payment.", () => {
+  it("Test scenario 5 - Homes sold over $500,000 can no longer be purchased with a 5% down payment", () => {
     const askingPrice = faker.number.int({ min: 500001, max: 1000000 });
 
     calculatorPage.fillAskingPrice(askingPrice);
@@ -85,9 +85,18 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getMortageByCol(0).should("have.text", "$673,400");
   });
 
-  it("Test scenario 6a - User can change the down payment percentage  ", () => {});
+  it("Test scenario 7 - User can change the down payment amount", () => {
+    const askingPrice = 900000;
 
-  it("Test scenario 7 - Error message when asking price field is left blank", () => {
+    calculatorPage.fillAskingPrice(askingPrice);
+    calculatorPage.fillDownPaymentAmountByIndex(0, 70200);
+
+    calculatorPage.getDownPaymentPercentByIndex(0).should("have.value", "7.8%");
+    calculatorPage.getInsuranceByCol(0).should("have.text", "$33,192");
+    calculatorPage.getMortageByCol(0).should("have.text", "$862,992");
+  });
+
+  it("Test scenario 8 - Error message when asking price field is left blank", () => {
     calculatorPage.focusOutAskingPrice();
 
     calculatorPage.getAskingPriceErrorMsg().should("have.text", "Please enter a whole number");
