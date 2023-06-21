@@ -2,7 +2,7 @@
 This repository contains an E2E automation framework for [BC CMHC Insurance calculator](https://www.ratehub.ca/cmhc-insurance-british-columbia). The test scenarios, written in Gherkin syntax can be found in the [TEST-SCENARIOS.md](TEST-SCENARIOS.md) file. These tests have been automated using [cypress](https://www.cypress.io/) testing framework.
 
 
-### Pre requisites
+## Pre requisites
 - [Node.js](https://nodejs.org/en/download)
 
 ## Installation
@@ -38,3 +38,7 @@ Cypress provides a built-in visual test runner that serves multiple purposes, in
 npm run cy:open
 ```
 
+Tests are located in `./cypress/e2e` directory. Here are some general development guidelines: 
+- Use the [Page Object Model](https://docs.cypress.io/guides/end-to-end-testing/protractor-to-cypress#Using-Page-Objects) design pattern. 
+- Classess representing each application pages can be found in `./cypress/pages` .
+- When writing each test scenario use [Arrange-Act-Assert](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/) pattern as a way to organize test actions.
