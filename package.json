@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "precy:run": "rm -rf ./cypress/reports",
+    "cy:run:chrome": "cypress run --headed --browser chrome",
+    "cy:run:firefox": "cypress run --headed --browser firefox"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "cypress": "^12.14.0",
+    "mochawesome": "^7.1.3"
+  }
+}
