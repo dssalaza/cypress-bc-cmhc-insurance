@@ -42,3 +42,7 @@ Tests are located in `./cypress/e2e` directory. Here are some general developmen
 - Use the [Page Object Model](https://docs.cypress.io/guides/end-to-end-testing/protractor-to-cypress#Using-Page-Objects) design pattern. 
 - Classess representing each application pages can be found in `./cypress/pages` .
 - When writing each test scenario use [Arrange-Act-Assert](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/) pattern as a way to organize test actions.
+
+### Disclaimer
+
+During the development of this test suite there was some black box business logic around how the insurance is calculated particularly around edge cases. I made efforts to introduce randomness to the inputs wherever possible, but some values had to be hard-coded. In a real-life scenario with a Business Analyst, we would have collaborated to create more efficient test cases, leveraging cross-role pairing.
