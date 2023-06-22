@@ -47,4 +47,12 @@ export class CalculatorPage {
   getDownPaymentAmountByIndex(index) {
     return cy.get(`[id="scenarios\\[${index}\\].downPaymentDollars"]`);
   }
+
+  checkAllDPPercentCols(downPaymentPercents) {
+    downPaymentPercents.forEach((percent, index) => {
+      this.getDownPaymentPercentByIndex(index).should("have.value", percent);
+    });
+  }
+
+  
 }
