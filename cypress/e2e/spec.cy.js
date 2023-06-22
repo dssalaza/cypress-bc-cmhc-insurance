@@ -11,16 +11,14 @@ describe("BC CMHC Insurance test suite", () => {
   it("Test scenario 1 - Mortage calculation with a fixed asking amount", () => {
     const downPaymentPercents = ["5.0%", "10.0%", "15.0%", "20.0%"];
     const downPaymentAmounts = ["$22,500", "$45,000", "$67,500", "$90,000"];
+    const insuranceAmounts = ["$17,100", "$12,555", "$10,710", "$0"];
 
     calculatorPage.fillAskingPrice(450000);
 
     calculatorPage.checkAllDPPercentCols(downPaymentPercents);
     calculatorPage.checkAllDPAmountCols(downPaymentAmounts);
+    calculatorPage.checkAllInsuranceCols(insuranceAmounts);
 
-    calculatorPage.getInsuranceByCol(0).should("have.text", "$17,100");
-    calculatorPage.getInsuranceByCol(1).should("have.text", "$12,555");
-    calculatorPage.getInsuranceByCol(2).should("have.text", "$10,710");
-    calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
 
     calculatorPage.getMortageByCol(0).should("have.text", "$444,600");
     calculatorPage.getMortageByCol(1).should("have.text", "$417,555");
@@ -29,26 +27,22 @@ describe("BC CMHC Insurance test suite", () => {
   });
 
   it("Test scenario 2 - CMHC insurance with down payment less than 20% should be calculated. Insurance with DP over 20% is not calculated", () => {
+    const insuranceAmounts = ["$19,000", "$13,950", "$11,900", "$0"];
+
     calculatorPage.fillAskingPrice(500000);
 
-    calculatorPage.getInsuranceByCol(0).should("have.text", "$19,000");
-    calculatorPage.getInsuranceByCol(1).should("have.text", "$13,950");
-    calculatorPage.getInsuranceByCol(2).should("have.text", "$11,900");
-    calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
+    calculatorPage.checkAllInsuranceCols(insuranceAmounts);
   });
 
   it("Test scenario 3 - CMHC insurance is not available for homes purchased for more than $1 million and minimun DP percentage starts at 20%", () => {
     const downPaymentPercents = ["20.0%", "25.0%", "30.0%", "35.0%"];
+    const insuranceAmounts = ["$0", "$0", "$0", "$0"];
     const askingPrice = faker.number.int({ min: 1000000, max: 10000000 });
 
     calculatorPage.fillAskingPrice(askingPrice);
 
     calculatorPage.checkAllDPPercentCols(downPaymentPercents);
-
-    calculatorPage.getInsuranceByCol(0).should("have.text", "$0");
-    calculatorPage.getInsuranceByCol(1).should("have.text", "$0");
-    calculatorPage.getInsuranceByCol(2).should("have.text", "$0");
-    calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
+    calculatorPage.checkAllInsuranceCols(insuranceAmounts);
   });
 
   it("Test scenario 4 - The minimum down payment is 5% of the first $500,000", () => {

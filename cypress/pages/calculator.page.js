@@ -59,4 +59,10 @@ export class CalculatorPage {
       this.getDownPaymentAmountByIndex(index).should("have.value", amount);
     });
   }
+
+  checkAllInsuranceCols(insuranceAmounts) {
+    insuranceAmounts.forEach((amount, index) => {
+      this.getInsuranceByCol(index).should("have.text", amount);
+    });
+  }
 }
