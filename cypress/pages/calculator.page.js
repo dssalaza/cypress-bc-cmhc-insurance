@@ -65,4 +65,10 @@ export class CalculatorPage {
       this.getInsuranceByCol(index).should("have.text", amount);
     });
   }
+
+  checkAllMortageCols(mortageAmounts) {
+    mortageAmounts.forEach((amount, index) => {
+      this.getMortageByCol(index).should("have.text", amount);
+    });
+  }
 }
