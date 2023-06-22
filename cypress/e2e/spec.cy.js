@@ -10,15 +10,12 @@ describe("BC CMHC Insurance test suite", () => {
 
   it("Test scenario 1 - Mortage calculation with a fixed asking amount", () => {
     const downPaymentPercents = ["5.0%", "10.0%", "15.0%", "20.0%"];
+    const downPaymentAmounts = ["$22,500", "$45,000", "$67,500", "$90,000"];
 
     calculatorPage.fillAskingPrice(450000);
 
     calculatorPage.checkAllDPPercentCols(downPaymentPercents);
-
-    calculatorPage.getDownPaymentAmountByIndex(0).should("have.value", "$22,500");
-    calculatorPage.getDownPaymentAmountByIndex(1).should("have.value", "$45,000");
-    calculatorPage.getDownPaymentAmountByIndex(2).should("have.value", "$67,500");
-    calculatorPage.getDownPaymentAmountByIndex(3).should("have.value", "$90,000");
+    calculatorPage.checkAllDPAmountCols(downPaymentAmounts);
 
     calculatorPage.getInsuranceByCol(0).should("have.text", "$17,100");
     calculatorPage.getInsuranceByCol(1).should("have.text", "$12,555");
@@ -40,7 +37,7 @@ describe("BC CMHC Insurance test suite", () => {
     calculatorPage.getInsuranceByCol(3).should("have.text", "$0");
   });
 
-  it.only("Test scenario 3 - CMHC insurance is not available for homes purchased for more than $1 million and minimun DP percentage starts at 20%", () => {
+  it("Test scenario 3 - CMHC insurance is not available for homes purchased for more than $1 million and minimun DP percentage starts at 20%", () => {
     const downPaymentPercents = ["20.0%", "25.0%", "30.0%", "35.0%"];
     const askingPrice = faker.number.int({ min: 1000000, max: 10000000 });
 

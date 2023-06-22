@@ -54,5 +54,9 @@ export class CalculatorPage {
     });
   }
 
-  
+  checkAllDPAmountCols(downPaymentAmounts) {
+    downPaymentAmounts.forEach((amount, index) => {
+      this.getDownPaymentAmountByIndex(index).should("have.value", amount);
+    });
+  }
 }
